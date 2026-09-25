@@ -8,7 +8,7 @@ async function start_download() {
   const quality = document.getElementById("quality_value").value;
 
   let data_json;
-  if (quality && quality.trim().length > 0) {
+  if (best.checked) {
       data_json = {
         wideo: document.getElementById("wideo").checked,
         quality: quality,
