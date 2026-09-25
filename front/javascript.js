@@ -1,11 +1,30 @@
-async function start_download() {
-  const data_json = {
-    wideo: document.getElementById("wideo").checked,
-    best: document.getElementById("best").checked,
-    playlist: document.getElementById("playlist").checked,
+const best = document.getElementById("quality");
 
-    url: document.getElementById("url").value,
-  };
+best.addEventListener("change", () =>{
+  document.getElementById("quality_value").style.display = best.checked ? "block" : "none";
+});
+
+async function start_download() {
+  const quality = document.getElementById("quality_value").value;
+
+  let data_json;
+  if (quality && quality.trim().length > 0) {
+      data_json = {
+        wideo: document.getElementById("wideo").checked,
+        quality: quality,
+        playlist: document.getElementById("playlist").checked,
+
+        url: document.getElementById("url").value,
+      };
+  }else{
+      data_json = {
+        wideo: document.getElementById("wideo").checked,
+        quality: 0,
+        playlist: document.getElementById("playlist").checked,
+
+        url: document.getElementById("url").value,
+      };
+  }
 
   try {
     const res = await fetch(`http://localhost:8080/api/download`, {
@@ -67,10 +86,4 @@ const update = document.getElementById("update");
 
 update.addEventListener("click", () => {
   update_dlp();
-});
-
-const best = document.getElementById("best");
-
-best.addEventListener("change", () =>{
-  document.getElementById("quality_value").style.display = "block"
 });

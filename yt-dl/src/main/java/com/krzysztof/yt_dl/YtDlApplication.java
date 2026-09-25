@@ -20,18 +20,19 @@ public class YtDlApplication {
 @CrossOrigin(origins = "*") // dla developmentu; docelowo podaj konkretny adres
 class DownloadController {
 
-	record DownloadRequest(String url, boolean wideo, boolean best, boolean playlist) {}
+	record DownloadRequest(String url, boolean wideo, int quality, boolean playlist) {}
 
 	@PostMapping("/download")
 	public ResponseEntity<String> download(@RequestBody DownloadRequest req) {
 		try {
 			List<String> command = new ArrayList<>();
 			command.add("C:\\Users\\KrzysztofWojciechDab\\Documents\\projekty\\yt-downloader\\yt downloader-api\\yt-dlp.exe");
-			if (req.best()){
+			if (req.quality()==0){
 				command.add("-f");
 				command.add("bestvideo+bestaudio/best");
 			}else{
-
+				command.add("-f");
+				command.add("bestvideo[height<=" + req.quality() + "]+bestaudio/best[height<=" + req.quality + "]");
 			}
 			command.add("--merge-output-format");
 			command.add("mp4");
