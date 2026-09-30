@@ -4,26 +4,35 @@ best.addEventListener("change", () =>{
   document.getElementById("quality_value").style.display = best.checked ? "block" : "none";
 });
 
+const best_sound = document.getElementById("quality_sound");
+
+best_sound.addEventListener("change", () => {
+  document.getElementById("quality_value_sound").style.display = best_sound.checked ? "block" : "none";
+  document.getElementById("quality_label_sound").style.display = best_sound.checked ? "block" : "none";
+});
+
 async function start_download() {
   const quality = document.getElementById("quality_value").value;
+  const quality_sound = document.getElementById(("quality_value_sound")).value;
 
-  let data_json;
+  let data_json = {
+    wideo: document.getElementById("wideo").checked,
+    quality: null,
+    quality_sound: null,
+    playlist: document.getElementById("playlist").checked,
+
+    url: document.getElementById("url").value,
+  };
   if (best.checked) {
-      data_json = {
-        wideo: document.getElementById("wideo").checked,
-        quality: quality,
-        playlist: document.getElementById("playlist").checked,
-
-        url: document.getElementById("url").value,
-      };
+    data_json.quality = quality;
   }else{
-      data_json = {
-        wideo: document.getElementById("wideo").checked,
-        quality: 0,
-        playlist: document.getElementById("playlist").checked,
+    data_json.quality = 0;
+  }
 
-        url: document.getElementById("url").value,
-      };
+  if (best_sound.checked) {
+    data_json.quality_sound = quality_sound;
+  }else{
+    data_json.quality_sound = 0;
   }
 
   try {
@@ -36,7 +45,7 @@ async function start_download() {
     });
 
     const data = await res.text();
-    document.getElementById("input").textContent = data;
+    document.getElementById("output").textContent = data;
 
     if (!res.ok) {
       console.error("Błąd serwera (status " + res.status + "):", data);
@@ -46,7 +55,7 @@ async function start_download() {
     return data;
   } catch (err) {
     console.error("Błąd pobierania:", err);
-    document.getElementById("input").textContent = err;
+    document.getElementById("output").textContent = err;
     return null;
   }
 
@@ -66,7 +75,7 @@ async function update_dlp() {
     });
 
     const data = await res.text();
-    document.getElementById("input").textContent = data;
+    document.getElementById("output").textContent = data;
 
     if (!res.ok) {
       console.error("Błąd serwera (status " + res.status + "):", data);
@@ -76,7 +85,7 @@ async function update_dlp() {
     return data;
   } catch (err) {
     console.error("Błąd pobierania:", err);
-    document.getElementById("input").textContent = err;
+    document.getElementById("output").textContent = err;
     return null;
   }
 
@@ -87,3 +96,4 @@ const update = document.getElementById("update");
 update.addEventListener("click", () => {
   update_dlp();
 });
+
