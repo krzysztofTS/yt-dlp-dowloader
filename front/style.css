@@ -9,7 +9,7 @@ html, body {
     font-style: normal;
 }
 
-#quality_value, #quality_value_sound, #quality_label_sound{
+#quality_value, #quality_value_sound, #quality_label_sound, #quality_label, #path_label, #path_value{
     display: none;
 }
 
@@ -73,7 +73,7 @@ main {
     background-color: #1e2142;
     border-radius: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     padding: 20px 30px;
     cursor: pointer;
@@ -91,6 +91,18 @@ button{
     color: white;
     width: 400px;
     height: 50px;
+    cursor: pointer;
+    transition: background-color 1s ;
+}
+
+button:hover{
+    background-color: #973745;
+    border: 2px solid #65212c;
+}
+
+button:active{
+    background-color: #e06256;
+    transition: background-color 0s;
 }
 
 .inp{
@@ -100,6 +112,19 @@ button{
     border: 2px solid #26274e;
     width: 400px;
     height: 50px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .inp::placeholder{
@@ -116,6 +141,7 @@ button{
     cursor: pointer;
     transition: background 0.2s;
     margin-right: 10px;
+    margin-block: 5px;
 }
 
 .checkbox::after {
@@ -138,6 +164,45 @@ label, h2{
     font-weight: bold;
     letter-spacing: 1px;
     text-align: center;
+}
+
+#output-div{
+    border: #3d3f4b solid 2px;
+    border-radius: 5px;
+    background-color: black;
+    color: #ec3333;
+    width: 400px;
+    height: 250px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-x: hidden;
+
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
+    /* 1. Standard CSS (głównie dla Firefoxa) */
+    scrollbar-width: thin;
+    scrollbar-color: #65212c #676b97;
+}
+
+/* 2. Dla przeglądarek WebKit (Chrome, Safari, Edge, Opera, Brave) */
+
+
+.output-div::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+.output-div::-webkit-scrollbar-track {
+    background: #676b97;
+    border-radius: 10px;
+}
+
+#output{
+    font-size: 15px;
+    line-height: 15px;
 }
 /* footer */
 
